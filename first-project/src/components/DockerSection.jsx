@@ -5,17 +5,13 @@ import { Copy, Check } from 'lucide-react'
 const DockerSection = ({ isOpen }) => {
   const [copied, setCopied] = useState(false)
 
-  const dockerfileContent = `FROM node:20-alpine AS build
+  const dockerfileContent = `FROM node:20-alpine
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build
-
-FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]`
+EXPOSE 5173
+`
 
   const copyDockerfile = () => {
     navigator.clipboard.writeText(dockerfileContent)
